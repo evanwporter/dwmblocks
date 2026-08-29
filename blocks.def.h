@@ -5,7 +5,7 @@ static const Block blocks[] = {
 	{" ", "brightnessctl -m | cut -d, -f4",                                  2, 2},
 	{"󰁹 ", "printf '%s%%' \"$(cat /sys/class/power_supply/BAT0/capacity)\"",  15, 0},
 	{" ", "date '+%d.%m'",                                                  60, 0},
-	{" ", "date '+%H:%M  '",                                                 5, 0},
+	{" ", "date '+%I:%M %p  '",                                                 5, 0},
 };
 
 //sets delimiter between status commands. NULL character ('\0') means no delimiter.
