@@ -5,7 +5,7 @@ static const Block blocks[] = {
 	{" ", "brightnessctl -m | cut -d, -f4",                                  2, 2},
 	{"", "if [ \"$(cat /sys/class/power_supply/BAT0/status)\" = Charging ]; then printf '^c#b8bb26^󰁹 ^d^'; else printf '󰁹 '; fi; printf '%s%%' \"$(cat /sys/class/power_supply/BAT0/capacity)\"",  15, 0},
 	{" ", "date '+%m.%d'",                                                  60, 0},
-	{" ", "date '+%I:%M %p  '",                                                 5, 0},
+	{" ", "date '+%I:%M %p'",                                                 5, 0},
 	{"", "if [ \"$(nmcli -t -f STATE general 2>/dev/null)\" = connected ]; then printf ' '; else printf '󰖪 '; fi", 5, 0},
 };
 
