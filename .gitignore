@@ -3,3 +3,4 @@ blocks.h
 dwmblocks
 *.o
 *.gch
+compile_commands.json
