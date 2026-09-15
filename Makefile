@@ -10,6 +10,9 @@ LDFLAGS := -lX11
 
 all: options dwmblocks
 
+compile_commands:
+	bear --output compile_commands.json -- make clean all
+
 options:
 	@echo dwmblocks build options:
 	@echo "CFLAGS  = ${CFLAGS}"
