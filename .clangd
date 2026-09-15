@@ -1,4 +1,0 @@
-If:
-  PathMatch: (.*/)?blocks(\.def)?\.h
-Diagnostics:
-  Suppress: '*'
