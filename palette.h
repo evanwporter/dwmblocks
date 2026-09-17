@@ -9,6 +9,7 @@
 #define BLUE     "#6f8faf"
 #define RED      "#ec6b64"
 #define DARKBLUE "#6080a0"
+#define YELLOW   "#d8a657"
 
 /* dwmblocks color helpers */
 #define FG(color) "^c" color "^"

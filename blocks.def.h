@@ -7,14 +7,14 @@ static const Block blocks[] = {
 
     // Volume
     {
-        "",
+        " ",
         "if pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes; then "
             "icon='󰖁'; "
         "else "
             "icon=''; "
         "fi; "
         "vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1); "
-        "printf '" FG(BLACK) BG(GREEN) " %s "
+        "printf '" FG(BLACK) BG(RED) " %s "
                    FG(WHITE) BG(GREY) " %s "
                    BG(BLACK) "' \"$icon\" \"$vol\"",
         2,
@@ -25,7 +25,7 @@ static const Block blocks[] = {
     {
         "",
         "brightness=$(brightnessctl -m | cut -d, -f4); "
-        "printf '" FG(BLACK) BG(RED) "  "
+        "printf '" FG(BLACK) BG(YELLOW) "  "
                    FG(WHITE) BG(GREY) " %s "
                    BG(BLACK) "' \"$brightness\"",
         2,
