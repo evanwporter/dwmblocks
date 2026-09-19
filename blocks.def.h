@@ -37,14 +37,37 @@ static const Block blocks[] = {
         "",
         "capacity=$(cat /sys/class/power_supply/BAT0/capacity); "
         "status=$(cat /sys/class/power_supply/BAT0/status); "
-        "if [ \"$status\" = Charging ]; then "
-            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_GREEN) " 󰁹 "
-                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s%% "
-                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$capacity\"; "
+        "state_file=${XDG_RUNTIME_DIR:-/tmp}/dwm-battery-state; "
+        "last=NONE; "
+        "[ -f \"$state_file\" ] && read -r last < \"$state_file\"; "
+
+        "if [ \"$status\" = Full ]; then "
+            "[ \"$last\" = FULL ] || notify-send 'Battery full'; "
+            "printf 'FULL\\n' > \"$state_file\"; "
+        "elif [ \"$status\" = Discharging ] && [ \"$capacity\" -le 15 ]; then "
+            "[ \"$last\" = CRITICAL ] || notify-send -u critical \"Battery very low: $capacity%\"; "
+            "printf 'CRITICAL\\n' > \"$state_file\"; "
+        "elif [ \"$status\" = Discharging ] && [ \"$capacity\" -le 20 ]; then "
+            "[ \"$last\" = LOW ] || notify-send \"Battery low: $capacity%\"; "
+            "printf 'LOW\\n' > \"$state_file\"; "
         "else "
-            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_RED) " 󰁹 "
-                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s%% "
-                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$capacity\"; "
+            "printf 'NONE\\n' > \"$state_file\"; "
+        "fi; "
+
+        "if [ \"$status\" = Charging ]; then "
+            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK)
+                       DWM_BLOCKS_BG(DWM_BLOCKS_GREEN) " 󰁹 "
+                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE)
+                       DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s%% "
+                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK)
+                       "' \"$capacity\"; "
+        "else "
+            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK)
+                       DWM_BLOCKS_BG(DWM_BLOCKS_RED) " 󰁹 "
+                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE)
+                       DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s%% "
+                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK)
+                       "' \"$capacity\"; "
         "fi",
         15,
         0
