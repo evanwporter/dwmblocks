@@ -14,9 +14,9 @@ static const Block blocks[] = {
             "icon=''; "
         "fi; "
         "vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1); "
-        "printf '" FG(BLACK) BG(RED) " %s "
-                   FG(WHITE) BG(GREY) " %s "
-                   BG(BLACK) "' \"$icon\" \"$vol\"",
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_RED) " %s "
+                   DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s "
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$icon\" \"$vol\"",
         2,
         0
     },
@@ -25,9 +25,9 @@ static const Block blocks[] = {
     {
         "",
         "brightness=$(brightnessctl -m | cut -d, -f4); "
-        "printf '" FG(BLACK) BG(YELLOW) "  "
-                   FG(WHITE) BG(GREY) " %s "
-                   BG(BLACK) "' \"$brightness\"",
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_YELLOW) "  "
+                   DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s "
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$brightness\"",
         2,
         0
     },
@@ -38,13 +38,13 @@ static const Block blocks[] = {
         "capacity=$(cat /sys/class/power_supply/BAT0/capacity); "
         "status=$(cat /sys/class/power_supply/BAT0/status); "
         "if [ \"$status\" = Charging ]; then "
-            "printf '" FG(BLACK) BG(GREEN) " 󰁹 "
-                       FG(WHITE) BG(GREY) " %s%% "
-                       BG(BLACK) "' \"$capacity\"; "
+            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_GREEN) " 󰁹 "
+                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s%% "
+                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$capacity\"; "
         "else "
-            "printf '" FG(BLACK) BG(RED) " 󰁹 "
-                       FG(WHITE) BG(GREY) " %s%% "
-                       BG(BLACK) "' \"$capacity\"; "
+            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_RED) " 󰁹 "
+                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s%% "
+                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$capacity\"; "
         "fi",
         15,
         0
@@ -57,13 +57,13 @@ static const Block blocks[] = {
             "nm-connection-editor >/dev/null 2>&1 & "
         "fi; "
         "if [ \"$(nmcli -t -f STATE general 2>/dev/null)\" = connected ]; then "
-            "printf '" FG(BLACK) BG(BLUE) " 󰤨 "
-                       FG(WHITE) BG(GREY) " Connected "
-                       BG(BLACK) "'; "
+            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_BLUE) " 󰤨 "
+                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " Connected "
+                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "'; "
         "else "
-            "printf '" FG(BLACK) BG(RED) " 󰤭 "
-                       FG(WHITE) BG(GREY) " Disconnected "
-                       BG(BLACK) "'; "
+            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_RED) " 󰤭 "
+                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " Disconnected "
+                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "'; "
         "fi",
         5,
         3
@@ -72,9 +72,9 @@ static const Block blocks[] = {
     // Clock
     {
         "",
-        "printf '" FG(BLACK) BG(DARKBLUE) " 󱑆 "
-                   FG(BLACK) BG(BLUE) " %s "
-                   BG(BLACK) "' \"$(date '+%b %d %I:%M %p')\"",
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_DARKBLUE) " 󱑆 "
+                   DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_BLUE) " %s "
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$(date '+%b %d %I:%M %p')\"",
         5,
         31
     },
