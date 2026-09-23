@@ -8,17 +8,26 @@ static const Block blocks[] = {
     // Volume
     {
         " ",
+        "if [ \"$BUTTON\" = 1 ]; then "
+            "pactl set-sink-mute @DEFAULT_SINK@ toggle; "
+        "fi; "
+
         "if pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes; then "
             "icon='󰖁'; "
         "else "
             "icon=''; "
         "fi; "
+
         "vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1); "
-        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_RED) " %s "
-                   DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s "
-                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$icon\" \"$vol\"",
+
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK)
+                   DWM_BLOCKS_BG(DWM_BLOCKS_RED) " %s "
+                   DWM_BLOCKS_FG(DWM_BLOCKS_WHITE)
+                   DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " %s "
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK)
+                   "' \"$icon\" \"$vol\"",
         2,
-        0
+        1
     },
 
     // Brightness
@@ -74,29 +83,44 @@ static const Block blocks[] = {
     },
 
     // Network
-    {
-        "",
-        "if [ \"$BUTTON\" = 1 ]; then "
-            "nm-connection-editor >/dev/null 2>&1 & "
-        "fi; "
-        "if [ \"$(nmcli -t -f STATE general 2>/dev/null)\" = connected ]; then "
-            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_BLUE) " 󰤨 "
-                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " Connected "
-                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "'; "
+{
+    "",
+    "if [ \"$BUTTON\" = 1 ]; then "
+        "nm-connection-editor >/dev/null 2>&1 & "
+    "fi; "
+
+    "if [ \"$(nmcli radio wifi)\" = disabled ]; then "
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK)
+                   DWM_BLOCKS_BG(DWM_BLOCKS_RED) " 󰤭 "
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "'; "
+    "else "
+        "signal=$(nmcli -t -f IN-USE,SIGNAL dev wifi | awk -F: '$1 == \"*\" {print $2; exit}'); "
+
+        "if [ -z \"$signal\" ]; then "
+            "icon='󰤯'; "
+        "elif [ \"$signal\" -ge 75 ]; then "
+            "icon='󰤨'; "
+        "elif [ \"$signal\" -ge 50 ]; then "
+            "icon='󰤥'; "
+        "elif [ \"$signal\" -ge 25 ]; then "
+            "icon='󰤢'; "
         "else "
-            "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_RED) " 󰤭 "
-                       DWM_BLOCKS_FG(DWM_BLOCKS_WHITE) DWM_BLOCKS_BG(DWM_BLOCKS_GREY) " Disconnected "
-                       DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "'; "
-        "fi",
-        5,
-        3
-    },
+            "icon='󰤟'; "
+        "fi; "
+
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK)
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLUE) " %s "
+                   DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$icon\"; "
+    "fi",
+    5,
+    3
+},
 
     // Clock
     {
         "",
-        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_DARKBLUE) " 󱑆 "
-                   DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_BLUE) " %s "
+        "printf '" DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_DARKGREEN) " 󱑆 "
+                   DWM_BLOCKS_FG(DWM_BLOCKS_BLACK) DWM_BLOCKS_BG(DWM_BLOCKS_GREEN) " %s "
                    DWM_BLOCKS_BG(DWM_BLOCKS_BLACK) "' \"$(date '+%b %d %I:%M %p')\"",
         5,
         31

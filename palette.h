@@ -92,6 +92,7 @@
 /* dwmblocks colors */
 #define DWM_BLOCKS_BLACK "#222526"
 #define DWM_BLOCKS_GREEN "#89b482"
+#define DWM_BLOCKS_DARKGREEN "#6f9368"
 #define DWM_BLOCKS_WHITE "#c7b89d"
 #define DWM_BLOCKS_GREY "#2b2e2f"
 #define DWM_BLOCKS_BLUE "#6f8faf"
